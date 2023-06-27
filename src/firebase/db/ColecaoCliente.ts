@@ -18,7 +18,6 @@ export default class ColecaoCliente implements ClienteRepositorio{
             return new Cliente(dados.nome, dados.idade,dados.telefone, dados.email, snapshot.id)
         }
     }
-
     async salvar(cliente: Cliente):Promise<Cliente> {
         if(cliente?.id){
            await this.colecao().doc(cliente.id).set(cliente)
@@ -29,16 +28,13 @@ export default class ColecaoCliente implements ClienteRepositorio{
             return doc.data()
         }
     }
-
     async excluir(cliente: Cliente): Promise<void> {
         return this.colecao().doc(cliente.id).delete()
     }
-
     async obterTodos(): Promise<Cliente[]> {
         const query = await this.colecao().get()
         return query.docs.map(doc => doc.data()) ?? []
     }
-
     private colecao(){
         return firebase.firestore().collection('clientes').withConverter(this.#conversor)
     }

@@ -11,20 +11,16 @@ interface ForumlarioProps{
 
 export default function Formulario(props: ForumlarioProps){
     const id = props.cliente?.id
-
     const [nome,setNome] = useState(props.cliente?.nome ?? '')
     const [idade,setIdade] = useState(props.cliente?.idade ?? 0)
     const [telefone,setTelefone] = useState(props.cliente?.telefone ?? '')
     const [email,setEmail] = useState(props.cliente?.email ?? '')
-    console.log(telefone)
 
     return (
         <div>
-            {id ? (
-                
+            {id ? (                
                 <Input somenteLeitura texto="Id" tipo="text" valor={id} className="mb-4"/>
             ): false}
-
             <Input texto="Nome:" valor={nome} valorMudou={setNome} className="mb-4"/>
             <Input texto="Idade:" tipo="number" valor={idade} valorMudou={setIdade} className="mb-4"/>
             <Input texto="Telefone:" valor={telefone} valorMudou={setTelefone} className="mb-4"/>            
@@ -34,7 +30,6 @@ export default function Formulario(props: ForumlarioProps){
                 <Botao cor="blue" className="mr-2" onClick={() =>props.clienteMudou?.(new Cliente(nome, +idade, telefone,email, id))}>
                    {id ? 'Alterar' : 'Salvar'}
                 </Botao>
-
                 <Botao cor="red" onClick={props.cancelado}>
                     Cancelar
                 </Botao>

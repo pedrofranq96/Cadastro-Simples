@@ -10,7 +10,6 @@ interface TabelaProps{
 export default function Tabela(props: TabelaProps){
 
     const exibirAcoes = props.clienteExcluido || props.clienteSelecionado
-
     function renderizarCabecalho(){
         return(
             <tr>
@@ -23,7 +22,6 @@ export default function Tabela(props: TabelaProps){
             </tr>
         )
     }
-
     function renderizarDados(){
         return props.clientes?.map((cliente, i) => {
             return (
@@ -38,12 +36,10 @@ export default function Tabela(props: TabelaProps){
             )
         })
     }
-
     function renderizarAcoes(cliente: Cliente){
         return(
             <td className="flex justify-center">
                 {props.clienteSelecionado ? (
-
                 <button onClick={() => props.clienteSelecionado?.(cliente)} className={`
                     flex justify-center items-center 
                     text-green-600 rounded-full p-2 m-1
@@ -52,7 +48,6 @@ export default function Tabela(props: TabelaProps){
                     {IconeEdicao}
                 </button>
                 ) : false}
-
                 {props.clienteExcluido ? (
                 <button onClick={() => props.clienteExcluido?.(cliente)} className={`
                     flex justify-center items-center 
