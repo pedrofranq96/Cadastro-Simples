@@ -10,10 +10,10 @@ export default function Tabela(props: TabelaProps){
         return(
             <tr>
                 {/* <th>Código</th> */}
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Telefone</th>
-                <th>Email</th>
+                <th className="text-left p-4">Nome</th>
+                <th className="text-left p-4">Idade</th>
+                <th className="text-left p-4">Telefone</th>
+                <th className="text-left p-4">Email</th>
             </tr>
         )
     }
@@ -21,19 +21,22 @@ export default function Tabela(props: TabelaProps){
     function renderizarDados(){
         return props.clientes?.map((cliente, i) => {
             return (
-                <tr key={cliente.id}>
+                <tr key={cliente.id} className={`${i % 2 === 0 ? 'bg-purple-200' : 'bg-purple-100'}`}>
                     {/* <td>{cliente.id}</td> */}
-                    <td>{cliente.nome}</td>
-                    <td>{cliente.idade}</td>
-                    <td>{cliente.telefone}</td>
-                    <td>{cliente.email}</td>
+                    <td className="text-left p-4">{cliente.nome}</td>
+                    <td className="text-left p-4">{cliente.idade}</td>
+                    <td className="text-left p-4">{cliente.telefone}</td>
+                    <td className="text-left p-4">{cliente.email}</td>
                 </tr>
             )
         })
     }
     return (
-        <table>
-            <thead>
+        <table className="w-full rounded-xl overflow-hidden">
+            <thead className={`
+                text-gray-200
+                bg-gradient-to-r from-purple-500 to-purple-800
+            `}>
                 {renderizarCabecalho()}
             </thead>
             <tbody>
