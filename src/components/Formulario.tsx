@@ -5,6 +5,8 @@ import Botao from "./Botao";
 
 interface ForumlarioProps{
     cliente: Cliente
+    clienteMudou?: (cliente: Cliente) => void
+    cancelado?: () => void
 }
 
 export default function Formulario(props: ForumlarioProps){
@@ -26,13 +28,13 @@ export default function Formulario(props: ForumlarioProps){
             <Input texto="Idade:" tipo="number" valor={idade} valorMudou={setIdade} className="mb-4"/>
             <Input texto="Telefone:" valor={telefone} valorMudou={setTelefone} className="mb-4"/>
             <Input texto="Email:" tipo="email" valor={email} valorMudou={setEmail} className="mb-4"/>
-            
+
             <div className="flex justify-end mt-7">
-                <Botao cor="blue" className="mr-2">
+                <Botao cor="blue" className="mr-2" onClick={() =>props.clienteMudou?.(new Cliente(nome, +idade, telefone, email, id))}>
                    {id ? 'Alterar' : 'Salvar'}
                 </Botao>
 
-                <Botao cor="red">
+                <Botao cor="red" onClick={props.cancelado}>
                     Cancelar
                 </Botao>
             </div>
