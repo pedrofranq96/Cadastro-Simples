@@ -1,5 +1,5 @@
 interface InputProps{
-    tipo?: 'text' | 'number' | "email"
+    tipo?: 'text' | 'number' 
     texto: string
     valor: any
     somenteLeitura?: boolean

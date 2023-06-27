@@ -1,34 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Botao from "../components/Botao";
 import Formulario from "../components/Formulario";
 import Layout from "../components/Layout";
 import Tabela from "../components/Tabela";
 import Cliente from "../core/Cliente";
+import ClienteRepositorio from "../core/ClienteRepositorio";
+import ColecaoCliente from "../firebase/db/ColecaoCliente";
 
 export default function Home() {
+  const repo: ClienteRepositorio = new ColecaoCliente()
+
   const [cliente,setCliente] = useState<Cliente>(Cliente.vazio())
+  const [clientes,setClientes] = useState<Cliente[]>([])
   const [visivel, setVisivel] = useState<'tabela' | 'form'>('tabela')
+
+  useEffect(obterTodos, [])
   
-  const clientes = [
-    new Cliente('Ana', 20,'219888-7777', 'ana@email.com','1'),
-    new Cliente('Ana2', 21,'219888-8888', 'ana@2email.com','2'),
-    new Cliente('Ana3', 22,'219888-9999', 'ana@3email.com','3'),
-    new Cliente('Ana4', 23,'219888-1111', 'ana@4email.com','4'),
-    new Cliente('Ana5', 24,'219888-2222', 'ana@5email.com','5'),
-  ]
+  function obterTodos(){
+    repo.obterTodos().then(clientes => {
+      setClientes(clientes)
+      setVisivel('tabela')
+    })
+
+  }
+  
 
   function clienteSelecionado(cliente: Cliente){
     setCliente(cliente)
     setVisivel('form')
   }
 
-  function clienteExcluido(cliente: Cliente){
-    console.log(`excluindo ...${cliente.nome}`)
+  async function clienteExcluido(cliente: Cliente){
+    await repo.excluir(cliente)
+    obterTodos()
   }
 
-  function salvarCliente(cliente:Cliente){
-    console.log(cliente)
-    setVisivel('tabela')
+  async function salvarCliente(cliente:Cliente){
+    await repo.salvar(cliente)
+    obterTodos()
   }
 
   function novoCliente(){
